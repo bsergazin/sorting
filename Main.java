@@ -5,7 +5,7 @@ public class Main {
 
     public static void main(String[] args) {
         int[] array = new int[] {1, 6, 2, 0, 10, 2};
-        BubbleSort(array);
+        SelectionSort(array);
         for (int i = 0; i < array.length; i++) {
             System.out.println(array[i]);
         }
@@ -23,7 +23,21 @@ public class Main {
             }
         }
     }
-    
 
-
+    public static void SelectionSort(int[] inputArray) {
+        int minIndex, tmp;
+        for(int i = 0; i < inputArray.length - 1; i++) {
+            minIndex = i;
+            
+            for(int j = i + 1; j < inputArray.length; j++) {
+                if (inputArray[j] < inputArray[minIndex]) {
+                    minIndex = j;
+                }
+            }
+            
+            tmp = inputArray[minIndex];
+            inputArray[minIndex] = inputArray[i];
+            inputArray[i] = tmp;
+        }
+    }
 }
