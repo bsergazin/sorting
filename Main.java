@@ -5,7 +5,7 @@ public class Main {
 
     public static void main(String[] args) {
         int[] array = new int[] {1, 6, 2, 0, 10, 2};
-        SelectionSort(array);
+        InsertionSort(array);
         for (int i = 0; i < array.length; i++) {
             System.out.println(array[i]);
         }
@@ -40,4 +40,17 @@ public class Main {
             inputArray[i] = tmp;
         }
     }
+
+    public static void InsertionSort(int[] array) {
+        for(int i = 1; i < array.length; i++) {
+            int tmp = array[i];
+            int j;
+            for(j = i - 1; j > -1 && array[j] > tmp; j--) {
+                array[j+1] = array[j];
+            }
+            array[j+1] = tmp;
+        }
+    }
+
+    
 }
