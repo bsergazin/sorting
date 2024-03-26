@@ -4,7 +4,7 @@
 public class Main {
 
     public static void main(String[] args) {
-        int arrLength = 200;
+        int arrLength = 100;
         int[] array = new int[arrLength];
 
         for(int i = 0; i < arrLength; i++) {
@@ -15,6 +15,7 @@ public class Main {
         int[] selectionSortArray = array.clone();
         int[] insertionSortArray = array.clone();
         int[] mergeSortArray = array.clone();
+        int[] quickSortArray = array.clone();
               
         long bubbleSortStartTime = System.nanoTime();
         BubbleSort(bubbleSortArray);
@@ -31,12 +32,18 @@ public class Main {
         long mergeSortStartTime = System.nanoTime();
         MergeSort(mergeSortArray, 0, mergeSortArray.length - 1);
         long mergeSortTime = System.nanoTime() - mergeSortStartTime;
+
+        long quickSortStartTime = System.nanoTime();
+        QuickSort(quickSortArray);;
+        long quickSortTime = System.nanoTime() - quickSortStartTime;
+        
                       
         System.out.println("Bubble Sort time elapsed = " + bubbleSortTime);
         System.out.println("Selection Sort time elapsed = " + selectionSortTime);
         System.out.println("Insertion Sort time elapsed = " + insertionSortTime);
         System.out.println("Merge Sort time elapsed = " + mergeSortTime);
- 
+        System.out.println("Quick Sort time elapsed = " + quickSortTime);
+
     }
 
     public static void BubbleSort(int[] inputArray) {
@@ -125,5 +132,46 @@ public class Main {
             j++;
             k++;
         }
+    }
+ 
+    public static void QuickSort(int[] inputArray) {
+        RecursiveQuickSort(inputArray, 0, inputArray.length - 1);
+    }
+
+    /**
+     * Will recursively call itself to perform quickSort
+     * @param inputArray
+     * @param low
+     * @param high
+     */
+    public static void RecursiveQuickSort(int[] inputArray, int low, int high) {
+        if(low < high) {
+            int pivotIdx = Partition(inputArray, low, high);
+            RecursiveQuickSort(inputArray, low, pivotIdx - 1);       
+            RecursiveQuickSort(inputArray, pivotIdx + 1, high);
+        }         
+    }
+
+    public static int Partition(int[] inputArray, int low, int high) {
+        // choose pivot
+        int pivot = inputArray[high];
+        int i = low - 1;
+        int j = low;
+
+        while(j <= high) {
+            if(inputArray[j] < pivot) {
+                i++;
+                Swap(inputArray, i, j);
+            } 
+            j++;    
+        }
+        Swap(inputArray, i+1, high);
+        return i + 1;
+    }
+
+    public static void Swap(int[] inputArray, int i, int j) {
+        int tmp = inputArray[i];
+        inputArray[i] = inputArray[j];
+        inputArray[j] = tmp;
     }
 }
